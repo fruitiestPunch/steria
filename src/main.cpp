@@ -16,7 +16,6 @@ int main(int argc, char** argv){
     SDL_Renderer* screen = SDL_CreateRenderer(win, -1, 0);
 
     animation itm;
-    std::cout << itm.getOldTick() << std::endl;
     itm.setFPS(15);
     itm.setRenderer(screen);
     itm.loadAnimation("res/wiz", "00", ".png");
@@ -24,6 +23,20 @@ int main(int argc, char** argv){
     itm.setSize(16, 16);
     itm.setCircleShape(8, 8, 8);
 
+    std::vector <item*> tiles;
+    for(int i = 0; i < 9; i++){
+        tiles.push_back(new item());
+        tiles[i]->setRenderer(screen);
+        tiles[i]->loadImage("res/tile.png");
+        tiles[i]->setPos(i * 16, 144);
+        tiles[i]->setSize(16, 16);
+        tiles[i]->setCircleShape(8, 8, 8);
+    }
+    //ground.setRenderer(screen);
+    //ground.loadImage("res/grass.png");
+
+
+    // Hier optional -> nur zum Lernen
     std::vector <item*> gems;
     int maxGems = 5;
     for(int i = 0; i < maxGems; i++){
@@ -36,7 +49,6 @@ int main(int argc, char** argv){
     }
 
     animation arrow;
-    std::cout << arrow.getOldTick() << std::endl;
     arrow.setFPS(15);
     arrow.setRenderer(screen);
     arrow.setSize(16, 16);
@@ -53,6 +65,14 @@ int main(int argc, char** argv){
     bool arrowHidden = false;
     double ang = 0;
     //int s = 8;
+    // Bis hier optional -> nur zum Lernen
+
+    // Mario Movement:
+    /*
+    t1 = 1 -> action
+    t2 = 2 -> sustain
+    t3 = 1 -> release
+    */
     int vx = 0, vy = 0;
     bool run = true;
 
@@ -123,6 +143,10 @@ int main(int argc, char** argv){
             }else{
                 gems[i]->draw(ang);
             }
+        }
+
+        for(int i = 0; i < 9; i++){
+            tiles[i]->draw();
         }
 
         //itm.draw(ang);

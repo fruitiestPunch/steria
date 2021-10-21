@@ -21,7 +21,7 @@ protected:
     SDL_Texture* image;
     SDL_Rect pos;
     circle center;
-    int oldTick;
+    int oldTick = 0;
 
 public:
     item();
