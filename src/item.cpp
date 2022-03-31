@@ -5,12 +5,14 @@ void itemInit()
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
+    TTF_Init();
 }
 
 void itemQuit()
 {
     SDL_Quit();
     IMG_Quit();
+    TTF_Quit();
 }
 
 item::item()
@@ -180,7 +182,7 @@ bool animation::loadAnimation(std::string p, std::string zb, std::string ext)
             if(zb[i] > '9')
             {
                 zb[i-1]++;
-                zb[i] = 0;
+                zb[i] = '0';
             }
         }
     }

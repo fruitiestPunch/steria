@@ -7,9 +7,18 @@ int main(int argc, char** argv)
 {
     srand(time(NULL));
     itemInit();
-    //SDL_Window* win = SDL_CreateWindow("title", 0, 0, 240, 160, SDL_WINDOW_SHOWN);
     SDL_Window* win = SDL_CreateWindow("title", 0, 0, 240, 160, SDL_WINDOW_SHOWN);
+    //SDL_Window* win = SDL_CreateWindow("title", 0, 0, 240, 160, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    //SDL_SetWindowResizable(win, SDL_TRUE);
     SDL_Renderer* screen = SDL_CreateRenderer(win, -1, 0);
+
+    TTF_Font* font = TTF_OpenFont("res/manaspc.ttf", 14);
+    SDL_Surface* textSurf = TTF_RenderText_Solid(font, "test text", {0,0,0});
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(screen, textSurf);
+    
+    SDL_Rect textRect = {30, 30, textSurf->w, textSurf->h};
+    SDL_FreeSurface(textSurf);
+    TTF_CloseFont(font);
 
     animation itm;
     itm.setFPS(4);
@@ -134,6 +143,7 @@ int main(int argc, char** argv)
             }
         }
 
+        SDL_RenderCopy(screen, textTexture, NULL, &textRect);
         SDL_RenderPresent(screen);
         arrow.update(startLoop);
         itm.update(startLoop);
