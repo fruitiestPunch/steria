@@ -1,28 +1,28 @@
-#ifndef imgs
-#define imgs
+#ifndef imgsANDitms
+#define imgsANDitms
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
-#include <iostream>
 #include <vector>
 
 void itemInit();
 void itemQuit();
 
-struct circle{
+struct circle
+{
     int x, y, r;
 };
 
-class item{
-
+class item
+{
 protected:
     SDL_Renderer* ren;
     SDL_Texture* image;
     SDL_Rect pos;
-    circle center;
     int oldTick = 0;
 
+    circle circ;
 public:
     item();
     virtual ~item();
@@ -35,21 +35,20 @@ public:
     void move(int x, int y);
     bool getCollision(item* other);
     bool isClicked(int x, int y);
-    circle getCricleShape();
-    void setCircleShape(int x, int y, int r);
     void draw(double angle);
     void draw();
     virtual void update(int tick);
-    int getOldTick();
+
+    circle getCricle();
+    void setCircle(int x, int y, int r);
 };
 
-class animation : public item{
-
+class animation : public item
+{
 protected:
     int frameCount;
-    std::vector <SDL_Texture*> images;
+    std::vector <SDL_Texture* > images;
     int desiredDelta;
-
 public:
     animation();
     virtual ~animation();
@@ -57,7 +56,7 @@ public:
     bool loadAnimation(std::string pref, std::string zbuf, std::string ext);
     void next();
     void freeImages();
-    void setFPS(int FPS);
+    void setFPS(int fps);
     virtual void update(int tick);
 };
 
